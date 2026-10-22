@@ -1,25 +1,29 @@
-import { Box, Container } from "@chakra-ui/react";
-import { motion } from "framer-motion";
-import Footer from "./Footer.jsx";
+import React from "react";
 import NavBar from "./NavBar.jsx";
+import Footer from "./Footer.jsx";
 
 export default function AppLayout({ children }) {
   return (
-    <Box minH="100vh" position="relative" bg="linear-gradient(180deg, #f8fafc 0%, #eef2f7 100%)">
-      <Box position="relative" zIndex={1}>
-        <NavBar />
-        <Container
-          as={motion.div}
-          maxW="6xl"
-          py={{ base: 6, md: 12 }}
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          {children}
-        </Container>
-        <Footer />
-      </Box>
-    </Box>
+    <div className="min-h-screen flex flex-col bg-[#f8fafc] text-slate-900 font-sans antialiased">
+      {/* a11y Skip Link */}
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-brand-600 focus:text-white focus:rounded-lg focus:shadow-lg focus:outline-none"
+      >
+        Skip to main content
+      </a>
+
+      <NavBar />
+
+      <main
+        id="main-content"
+        tabIndex="-1"
+        className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 focus:outline-none"
+      >
+        {children}
+      </main>
+
+      <Footer />
+    </div>
   );
 }
